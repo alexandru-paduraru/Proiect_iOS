@@ -1,0 +1,505 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1002EBA816FA21820092DB76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBA716FA21820092DB76 /* UIKit.framework */; };
+		1002EBAA16FA21820092DB76 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBA916FA21820092DB76 /* Foundation.framework */; };
+		1002EBAC16FA21820092DB76 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBAB16FA21820092DB76 /* CoreGraphics.framework */; };
+		1002EBB216FA21820092DB76 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1002EBB016FA21820092DB76 /* InfoPlist.strings */; };
+		1002EBB416FA21820092DB76 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1002EBB316FA21820092DB76 /* main.m */; };
+		1002EBB816FA21820092DB76 /* iOSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1002EBB716FA21820092DB76 /* iOSAppDelegate.m */; };
+		1002EBBA16FA21820092DB76 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 1002EBB916FA21820092DB76 /* Default.png */; };
+		1002EBBC16FA21820092DB76 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1002EBBB16FA21820092DB76 /* Default@2x.png */; };
+		1002EBBE16FA21820092DB76 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1002EBBD16FA21820092DB76 /* Default-568h@2x.png */; };
+		1002EBC116FA21820092DB76 /* iOSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1002EBC016FA21820092DB76 /* iOSViewController.m */; };
+		1002EBC416FA21820092DB76 /* iOSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1002EBC216FA21820092DB76 /* iOSViewController.xib */; };
+		1002EBCB16FA21A70092DB76 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBCA16FA21A70092DB76 /* Parse.framework */; };
+		1002EBCD16FA21DB0092DB76 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBCC16FA21DB0092DB76 /* AdSupport.framework */; };
+		1002EBCF16FA21E50092DB76 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBCE16FA21E40092DB76 /* AudioToolbox.framework */; };
+		1002EBD116FA21F10092DB76 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBD016FA21F10092DB76 /* CFNetwork.framework */; };
+		1002EBD316FA22000092DB76 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBD216FA22000092DB76 /* CoreLocation.framework */; };
+		1002EBD516FA22140092DB76 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBD416FA22140092DB76 /* libz.1.1.3.dylib */; };
+		1002EBD716FA221E0092DB76 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBD616FA221E0092DB76 /* MobileCoreServices.framework */; };
+		1002EBD916FA22230092DB76 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBD816FA22230092DB76 /* QuartzCore.framework */; };
+		1002EBDB16FA222C0092DB76 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBDA16FA222C0092DB76 /* Security.framework */; };
+		1002EBDD16FA22320092DB76 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBDC16FA22320092DB76 /* StoreKit.framework */; };
+		1002EBDF16FA22390092DB76 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1002EBDE16FA22390092DB76 /* SystemConfiguration.framework */; };
+		100541411703B4500007CCB8 /* invitationCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 100541401703B4500007CCB8 /* invitationCell.png */; };
+		10302721170761990016AD44 /* EventsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10302720170761990016AD44 /* EventsTableViewController.m */; };
+		1037F116170A3A9A008A37F2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1037F115170A3A9A008A37F2 /* FacebookSDK.framework */; };
+		1037F118170A3B9B008A37F2 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1037F117170A3B9B008A37F2 /* FacebookSDKResources.bundle */; };
+		1037F11B170A3BE6008A37F2 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1037F119170A3BE6008A37F2 /* Accounts.framework */; };
+		1037F11C170A3BE6008A37F2 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1037F11A170A3BE6008A37F2 /* Social.framework */; };
+		10AF50D11704D06400070130 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 10AF50D01704D06400070130 /* background.png */; };
+		10AF50D51704D3CD00070130 /* top_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 10AF50D41704D3CD00070130 /* top_bar.png */; };
+		10AF50D71704D4B600070130 /* top_bar2.png in Resources */ = {isa = PBXBuildFile; fileRef = 10AF50D61704D4B600070130 /* top_bar2.png */; };
+		10AF50D91704DC9700070130 /* addEventButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 10AF50D81704DC9700070130 /* addEventButton.png */; };
+		10AF50DB1704DE1700070130 /* addEventButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 10AF50DA1704DE1700070130 /* addEventButtonPressed.png */; };
+		10AF50DE1704F0A800070130 /* myProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 10AF50DC1704F0A800070130 /* myProfile.png */; };
+		10AF50DF1704F0A800070130 /* myProfilePressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 10AF50DD1704F0A800070130 /* myProfilePressed.png */; };
+		10AF50E21704F6E100070130 /* addEventButton2.png in Resources */ = {isa = PBXBuildFile; fileRef = 10AF50E01704F6E100070130 /* addEventButton2.png */; };
+		10AF50E31704F6E100070130 /* addEventButtonPressed2.png in Resources */ = {isa = PBXBuildFile; fileRef = 10AF50E11704F6E100070130 /* addEventButtonPressed2.png */; };
+		10D849391708FEAC007E352B /* customCell2.png in Resources */ = {isa = PBXBuildFile; fileRef = 10D849381708FEAC007E352B /* customCell2.png */; };
+		10D9BD7216FDE6B7006B4AAD /* MyLogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10D9BD7016FDE6B7006B4AAD /* MyLogInViewController.m */; };
+		10D9BD7316FDE6B7006B4AAD /* MyLogInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10D9BD7116FDE6B7006B4AAD /* MyLogInViewController.xib */; };
+		10D9BD7B16FE2E32006B4AAD /* UPbg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 10D9BD7A16FE2E32006B4AAD /* UPbg2.png */; };
+		10D9BD7D16FE3098006B4AAD /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 10D9BD7C16FE3098006B4AAD /* logo.png */; };
+		10D9BD8116FE3220006B4AAD /* AddEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10D9BD7F16FE3220006B4AAD /* AddEventViewController.m */; };
+		10D9BD8216FE3220006B4AAD /* AddEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10D9BD8016FE3220006B4AAD /* AddEventViewController.xib */; };
+		10F460951700BEF800DA8D5A /* EventsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10F460941700BEF800DA8D5A /* EventsTableViewCell.m */; };
+		10F460971700BF5B00DA8D5A /* EventsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10F460961700BF5B00DA8D5A /* EventsTableViewCell.xib */; };
+		10F4609A1700C13000DA8D5A /* customCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 10F460991700C13000DA8D5A /* customCell.png */; };
+		10F4609C1700C31600DA8D5A /* ceasLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 10F4609B1700C31600DA8D5A /* ceasLogo.png */; };
+		10F79DA916FF689E00CF0900 /* bUserPassInput.png in Resources */ = {isa = PBXBuildFile; fileRef = 10F79DA716FF689E00CF0900 /* bUserPassInput.png */; };
+		10F79DAA16FF689E00CF0900 /* ios_project_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 10F79DA816FF689E00CF0900 /* ios_project_bg.png */; };
+		10F79DB316FF7BB400CF0900 /* signupButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 10F79DB116FF7BB400CF0900 /* signupButton.png */; };
+		10F79DB416FF7BB400CF0900 /* signupButtonHover.png in Resources */ = {isa = PBXBuildFile; fileRef = 10F79DB216FF7BB400CF0900 /* signupButtonHover.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1002EBA416FA21820092DB76 /* Proiect_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Proiect_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1002EBA716FA21820092DB76 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1002EBA916FA21820092DB76 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1002EBAB16FA21820092DB76 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1002EBAF16FA21820092DB76 /* Proiect_iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Proiect_iOS-Info.plist"; sourceTree = "<group>"; };
+		1002EBB116FA21820092DB76 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1002EBB316FA21820092DB76 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1002EBB516FA21820092DB76 /* Proiect_iOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Proiect_iOS-Prefix.pch"; sourceTree = "<group>"; };
+		1002EBB616FA21820092DB76 /* iOSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSAppDelegate.h; sourceTree = "<group>"; };
+		1002EBB716FA21820092DB76 /* iOSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSAppDelegate.m; sourceTree = "<group>"; };
+		1002EBB916FA21820092DB76 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		1002EBBB16FA21820092DB76 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		1002EBBD16FA21820092DB76 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		1002EBBF16FA21820092DB76 /* iOSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOSViewController.h; sourceTree = "<group>"; };
+		1002EBC016FA21820092DB76 /* iOSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSViewController.m; sourceTree = "<group>"; };
+		1002EBC316FA21820092DB76 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/iOSViewController.xib; sourceTree = "<group>"; };
+		1002EBCA16FA21A70092DB76 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		1002EBCC16FA21DB0092DB76 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		1002EBCE16FA21E40092DB76 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1002EBD016FA21F10092DB76 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		1002EBD216FA22000092DB76 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1002EBD416FA22140092DB76 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		1002EBD616FA221E0092DB76 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1002EBD816FA22230092DB76 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1002EBDA16FA222C0092DB76 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1002EBDC16FA22320092DB76 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		1002EBDE16FA22390092DB76 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		100541401703B4500007CCB8 /* invitationCell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = invitationCell.png; sourceTree = "<group>"; };
+		1030271F170761990016AD44 /* EventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTableViewController.h; sourceTree = "<group>"; };
+		10302720170761990016AD44 /* EventsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTableViewController.m; sourceTree = "<group>"; };
+		1037F115170A3A9A008A37F2 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		1037F117170A3B9B008A37F2 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FacebookSDKResources.bundle; sourceTree = "<group>"; };
+		1037F119170A3BE6008A37F2 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		1037F11A170A3BE6008A37F2 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		10AF50D01704D06400070130 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		10AF50D41704D3CD00070130 /* top_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_bar.png; sourceTree = "<group>"; };
+		10AF50D61704D4B600070130 /* top_bar2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top_bar2.png; sourceTree = "<group>"; };
+		10AF50D81704DC9700070130 /* addEventButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addEventButton.png; sourceTree = "<group>"; };
+		10AF50DA1704DE1700070130 /* addEventButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addEventButtonPressed.png; sourceTree = "<group>"; };
+		10AF50DC1704F0A800070130 /* myProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myProfile.png; sourceTree = "<group>"; };
+		10AF50DD1704F0A800070130 /* myProfilePressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myProfilePressed.png; sourceTree = "<group>"; };
+		10AF50E01704F6E100070130 /* addEventButton2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addEventButton2.png; sourceTree = "<group>"; };
+		10AF50E11704F6E100070130 /* addEventButtonPressed2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addEventButtonPressed2.png; sourceTree = "<group>"; };
+		10D849381708FEAC007E352B /* customCell2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = customCell2.png; sourceTree = "<group>"; };
+		10D9BD6F16FDE6B7006B4AAD /* MyLogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLogInViewController.h; sourceTree = "<group>"; };
+		10D9BD7016FDE6B7006B4AAD /* MyLogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLogInViewController.m; sourceTree = "<group>"; };
+		10D9BD7116FDE6B7006B4AAD /* MyLogInViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyLogInViewController.xib; sourceTree = "<group>"; };
+		10D9BD7A16FE2E32006B4AAD /* UPbg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UPbg2.png; sourceTree = "<group>"; };
+		10D9BD7C16FE3098006B4AAD /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		10D9BD7E16FE3220006B4AAD /* AddEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddEventViewController.h; sourceTree = "<group>"; };
+		10D9BD7F16FE3220006B4AAD /* AddEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddEventViewController.m; sourceTree = "<group>"; };
+		10D9BD8016FE3220006B4AAD /* AddEventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddEventViewController.xib; sourceTree = "<group>"; };
+		10F460931700BEF800DA8D5A /* EventsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTableViewCell.h; sourceTree = "<group>"; };
+		10F460941700BEF800DA8D5A /* EventsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTableViewCell.m; sourceTree = "<group>"; };
+		10F460961700BF5B00DA8D5A /* EventsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventsTableViewCell.xib; sourceTree = "<group>"; };
+		10F460991700C13000DA8D5A /* customCell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = customCell.png; sourceTree = "<group>"; };
+		10F4609B1700C31600DA8D5A /* ceasLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ceasLogo.png; sourceTree = "<group>"; };
+		10F79DA716FF689E00CF0900 /* bUserPassInput.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bUserPassInput.png; sourceTree = "<group>"; };
+		10F79DA816FF689E00CF0900 /* ios_project_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ios_project_bg.png; sourceTree = "<group>"; };
+		10F79DB116FF7BB400CF0900 /* signupButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = signupButton.png; path = ../img/signupButton.png; sourceTree = "<group>"; };
+		10F79DB216FF7BB400CF0900 /* signupButtonHover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = signupButtonHover.png; path = ../img/signupButtonHover.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1002EBA116FA21820092DB76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1037F11B170A3BE6008A37F2 /* Accounts.framework in Frameworks */,
+				1037F11C170A3BE6008A37F2 /* Social.framework in Frameworks */,
+				1002EBCD16FA21DB0092DB76 /* AdSupport.framework in Frameworks */,
+				1002EBDF16FA22390092DB76 /* SystemConfiguration.framework in Frameworks */,
+				1002EBDD16FA22320092DB76 /* StoreKit.framework in Frameworks */,
+				1002EBDB16FA222C0092DB76 /* Security.framework in Frameworks */,
+				1002EBD916FA22230092DB76 /* QuartzCore.framework in Frameworks */,
+				1002EBD716FA221E0092DB76 /* MobileCoreServices.framework in Frameworks */,
+				1002EBD316FA22000092DB76 /* CoreLocation.framework in Frameworks */,
+				1002EBAC16FA21820092DB76 /* CoreGraphics.framework in Frameworks */,
+				1002EBD116FA21F10092DB76 /* CFNetwork.framework in Frameworks */,
+				1002EBCF16FA21E50092DB76 /* AudioToolbox.framework in Frameworks */,
+				1002EBD516FA22140092DB76 /* libz.1.1.3.dylib in Frameworks */,
+				1002EBA816FA21820092DB76 /* UIKit.framework in Frameworks */,
+				1002EBAA16FA21820092DB76 /* Foundation.framework in Frameworks */,
+				1002EBCB16FA21A70092DB76 /* Parse.framework in Frameworks */,
+				1037F116170A3A9A008A37F2 /* FacebookSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1002EB9B16FA21820092DB76 = {
+			isa = PBXGroup;
+			children = (
+				1002EBAD16FA21820092DB76 /* Proiect_iOS */,
+				1002EBA616FA21820092DB76 /* Frameworks */,
+				1002EBA516FA21820092DB76 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1002EBA516FA21820092DB76 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1002EBA416FA21820092DB76 /* Proiect_iOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1002EBA616FA21820092DB76 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1037F119170A3BE6008A37F2 /* Accounts.framework */,
+				1037F11A170A3BE6008A37F2 /* Social.framework */,
+				1037F117170A3B9B008A37F2 /* FacebookSDKResources.bundle */,
+				1037F115170A3A9A008A37F2 /* FacebookSDK.framework */,
+				1002EBDE16FA22390092DB76 /* SystemConfiguration.framework */,
+				1002EBDC16FA22320092DB76 /* StoreKit.framework */,
+				1002EBDA16FA222C0092DB76 /* Security.framework */,
+				1002EBD816FA22230092DB76 /* QuartzCore.framework */,
+				1002EBD616FA221E0092DB76 /* MobileCoreServices.framework */,
+				1002EBD416FA22140092DB76 /* libz.1.1.3.dylib */,
+				1002EBD216FA22000092DB76 /* CoreLocation.framework */,
+				1002EBD016FA21F10092DB76 /* CFNetwork.framework */,
+				1002EBCE16FA21E40092DB76 /* AudioToolbox.framework */,
+				1002EBCC16FA21DB0092DB76 /* AdSupport.framework */,
+				1002EBCA16FA21A70092DB76 /* Parse.framework */,
+				1002EBA716FA21820092DB76 /* UIKit.framework */,
+				1002EBA916FA21820092DB76 /* Foundation.framework */,
+				1002EBAB16FA21820092DB76 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1002EBAD16FA21820092DB76 /* Proiect_iOS */ = {
+			isa = PBXGroup;
+			children = (
+				1002EBB616FA21820092DB76 /* iOSAppDelegate.h */,
+				1002EBB716FA21820092DB76 /* iOSAppDelegate.m */,
+				1002EBBF16FA21820092DB76 /* iOSViewController.h */,
+				1002EBC016FA21820092DB76 /* iOSViewController.m */,
+				10F460981700C01100DA8D5A /* EventsTableViewCell */,
+				10D9BD7E16FE3220006B4AAD /* AddEventViewController.h */,
+				10D9BD7F16FE3220006B4AAD /* AddEventViewController.m */,
+				10D9BD6F16FDE6B7006B4AAD /* MyLogInViewController.h */,
+				10D9BD7016FDE6B7006B4AAD /* MyLogInViewController.m */,
+				10D9BD8016FE3220006B4AAD /* AddEventViewController.xib */,
+				10D9BD7116FDE6B7006B4AAD /* MyLogInViewController.xib */,
+				1002EBC216FA21820092DB76 /* iOSViewController.xib */,
+				1002EBAE16FA21820092DB76 /* Supporting Files */,
+			);
+			path = Proiect_iOS;
+			sourceTree = "<group>";
+		};
+		1002EBAE16FA21820092DB76 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1002EBAF16FA21820092DB76 /* Proiect_iOS-Info.plist */,
+				10D9BD7A16FE2E32006B4AAD /* UPbg2.png */,
+				10F460991700C13000DA8D5A /* customCell.png */,
+				10AF50E01704F6E100070130 /* addEventButton2.png */,
+				10AF50E11704F6E100070130 /* addEventButtonPressed2.png */,
+				100541401703B4500007CCB8 /* invitationCell.png */,
+				10F4609B1700C31600DA8D5A /* ceasLogo.png */,
+				1002EBB016FA21820092DB76 /* InfoPlist.strings */,
+				10AF50D81704DC9700070130 /* addEventButton.png */,
+				10D849381708FEAC007E352B /* customCell2.png */,
+				10AF50DC1704F0A800070130 /* myProfile.png */,
+				10AF50DD1704F0A800070130 /* myProfilePressed.png */,
+				10AF50DA1704DE1700070130 /* addEventButtonPressed.png */,
+				10AF50D41704D3CD00070130 /* top_bar.png */,
+				10AF50D61704D4B600070130 /* top_bar2.png */,
+				10AF50D01704D06400070130 /* background.png */,
+				1002EBB316FA21820092DB76 /* main.m */,
+				10F79DB116FF7BB400CF0900 /* signupButton.png */,
+				10F79DB216FF7BB400CF0900 /* signupButtonHover.png */,
+				10F79DA716FF689E00CF0900 /* bUserPassInput.png */,
+				10F79DA816FF689E00CF0900 /* ios_project_bg.png */,
+				1002EBB516FA21820092DB76 /* Proiect_iOS-Prefix.pch */,
+				10D9BD7C16FE3098006B4AAD /* logo.png */,
+				1002EBB916FA21820092DB76 /* Default.png */,
+				1002EBBB16FA21820092DB76 /* Default@2x.png */,
+				1002EBBD16FA21820092DB76 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		10F460981700C01100DA8D5A /* EventsTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				10F460931700BEF800DA8D5A /* EventsTableViewCell.h */,
+				10F460941700BEF800DA8D5A /* EventsTableViewCell.m */,
+				10F460961700BF5B00DA8D5A /* EventsTableViewCell.xib */,
+				1030271F170761990016AD44 /* EventsTableViewController.h */,
+				10302720170761990016AD44 /* EventsTableViewController.m */,
+			);
+			name = EventsTableViewCell;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1002EBA316FA21820092DB76 /* Proiect_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1002EBC716FA21820092DB76 /* Build configuration list for PBXNativeTarget "Proiect_iOS" */;
+			buildPhases = (
+				1002EBA016FA21820092DB76 /* Sources */,
+				1002EBA116FA21820092DB76 /* Frameworks */,
+				1002EBA216FA21820092DB76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Proiect_iOS;
+			productName = Proiect_iOS;
+			productReference = 1002EBA416FA21820092DB76 /* Proiect_iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1002EB9C16FA21820092DB76 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = iOS;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Axelut Alex";
+			};
+			buildConfigurationList = 1002EB9F16FA21820092DB76 /* Build configuration list for PBXProject "Proiect_iOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1002EB9B16FA21820092DB76;
+			productRefGroup = 1002EBA516FA21820092DB76 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1002EBA316FA21820092DB76 /* Proiect_iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1002EBA216FA21820092DB76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1002EBB216FA21820092DB76 /* InfoPlist.strings in Resources */,
+				1002EBBA16FA21820092DB76 /* Default.png in Resources */,
+				1002EBBC16FA21820092DB76 /* Default@2x.png in Resources */,
+				1002EBBE16FA21820092DB76 /* Default-568h@2x.png in Resources */,
+				1002EBC416FA21820092DB76 /* iOSViewController.xib in Resources */,
+				10D9BD7316FDE6B7006B4AAD /* MyLogInViewController.xib in Resources */,
+				10D9BD7B16FE2E32006B4AAD /* UPbg2.png in Resources */,
+				10D9BD7D16FE3098006B4AAD /* logo.png in Resources */,
+				10D9BD8216FE3220006B4AAD /* AddEventViewController.xib in Resources */,
+				10F79DA916FF689E00CF0900 /* bUserPassInput.png in Resources */,
+				10F79DAA16FF689E00CF0900 /* ios_project_bg.png in Resources */,
+				10F79DB316FF7BB400CF0900 /* signupButton.png in Resources */,
+				10F79DB416FF7BB400CF0900 /* signupButtonHover.png in Resources */,
+				10F460971700BF5B00DA8D5A /* EventsTableViewCell.xib in Resources */,
+				10F4609A1700C13000DA8D5A /* customCell.png in Resources */,
+				10F4609C1700C31600DA8D5A /* ceasLogo.png in Resources */,
+				100541411703B4500007CCB8 /* invitationCell.png in Resources */,
+				10AF50D11704D06400070130 /* background.png in Resources */,
+				10AF50D51704D3CD00070130 /* top_bar.png in Resources */,
+				10AF50D71704D4B600070130 /* top_bar2.png in Resources */,
+				10AF50D91704DC9700070130 /* addEventButton.png in Resources */,
+				10AF50DB1704DE1700070130 /* addEventButtonPressed.png in Resources */,
+				10AF50DE1704F0A800070130 /* myProfile.png in Resources */,
+				10AF50DF1704F0A800070130 /* myProfilePressed.png in Resources */,
+				10AF50E21704F6E100070130 /* addEventButton2.png in Resources */,
+				10AF50E31704F6E100070130 /* addEventButtonPressed2.png in Resources */,
+				10D849391708FEAC007E352B /* customCell2.png in Resources */,
+				1037F118170A3B9B008A37F2 /* FacebookSDKResources.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1002EBA016FA21820092DB76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1002EBB416FA21820092DB76 /* main.m in Sources */,
+				1002EBB816FA21820092DB76 /* iOSAppDelegate.m in Sources */,
+				1002EBC116FA21820092DB76 /* iOSViewController.m in Sources */,
+				10D9BD7216FDE6B7006B4AAD /* MyLogInViewController.m in Sources */,
+				10D9BD8116FE3220006B4AAD /* AddEventViewController.m in Sources */,
+				10F460951700BEF800DA8D5A /* EventsTableViewCell.m in Sources */,
+				10302721170761990016AD44 /* EventsTableViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1002EBB016FA21820092DB76 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1002EBB116FA21820092DB76 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1002EBC216FA21820092DB76 /* iOSViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1002EBC316FA21820092DB76 /* en */,
+			);
+			name = iOSViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1002EBC516FA21820092DB76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1002EBC616FA21820092DB76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1002EBC816FA21820092DB76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Proiect_iOS/Proiect_iOS-Prefix.pch";
+				INFOPLIST_FILE = "Proiect_iOS/Proiect_iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = (
+					"-lsqlite3.0",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1002EBC916FA21820092DB76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Proiect_iOS/Proiect_iOS-Prefix.pch";
+				INFOPLIST_FILE = "Proiect_iOS/Proiect_iOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_LDFLAGS = (
+					"-lsqlite3.0",
+					"-ObjC",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1002EB9F16FA21820092DB76 /* Build configuration list for PBXProject "Proiect_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1002EBC516FA21820092DB76 /* Debug */,
+				1002EBC616FA21820092DB76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1002EBC716FA21820092DB76 /* Build configuration list for PBXNativeTarget "Proiect_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1002EBC816FA21820092DB76 /* Debug */,
+				1002EBC916FA21820092DB76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1002EB9C16FA21820092DB76 /* Project object */;
+}
