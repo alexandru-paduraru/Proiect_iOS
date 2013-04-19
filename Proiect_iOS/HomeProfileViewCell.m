@@ -1,20 +1,14 @@
 //
-//  EventsTableViewCell.m
+//  HomeProfileViewCell.m
 //  Proiect_iOS
 //
-//  Created by Axelut Alex on 253//13.
+//  Created by Axelut Alex on 194//13.
 //  Copyright (c) 2013 Axelut Alex. All rights reserved.
 //
 
-#import "EventsTableViewCell.h"
+#import "HomeProfileViewCell.h"
 
-@implementation EventsTableViewCell
-
-@synthesize nameLabel = _nameLabel;
-@synthesize dateLabel = _dateLabel;
-@synthesize locationLabel = _locationLabel;
-@synthesize createdBy = _createdBy;
-@synthesize eventProfilePicture = _eventProfilePicture;
+@implementation HomeProfileViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

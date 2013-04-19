@@ -6,7 +6,20 @@
 
 @implementation iOSAppDelegate
 
+
 @synthesize navController;
+@synthesize currentLocation;
+
+- (void)setCurrentLocation:(CLLocation *)aCurrentLocation
+{
+	currentLocation = aCurrentLocation;
+    
+	// Notify the app of the location change:
+	NSDictionary *userInfo = [NSDictionary dictionaryWithObject:currentLocation forKey:@"location"];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[[NSNotificationCenter defaultCenter] postNotificationName:CLocationChangeNotification object:nil userInfo:userInfo];
+	});
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -27,7 +40,7 @@
     self.window.rootViewController = self.navController;
     
     UINavigationBar *navBar = [[self navController] navigationBar];
-    UIImage *backgroundImage = [UIImage imageNamed:@"top_bar2.png"];
+    UIImage *backgroundImage = [UIImage imageNamed:NavBarBackground];
     [navBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
     
     

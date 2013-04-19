@@ -1,31 +1,27 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "SearchChooseFriendsVC.h"
 #import <Parse/Parse.h>
+#import <MapKit/MapKit.h>
 
-@protocol AddEventDelegate @optional
-    -(void)amountEntered:(NSInteger)amount;
-@end
-
-
-@interface AddEventViewController : UIViewController <CLLocationManagerDelegate>{
+@interface AddEventViewController : UIViewController <FBPlacePickerDelegate,
+MKMapViewDelegate, SelectedFriendsDelegate>{
     IBOutlet UITextField *amountTextField;
     IBOutlet UILabel *coordinates;
     IBOutlet UITextField *eventName;
-//    IBOutlet UITextField *eventDate;
     UIDatePicker *_datePicker;
     CLLocationManager *_locationManager;
+    UISearchDisplayController *_mySearchDisplayController;
     
 }
-@property (nonatomic,weak) id <AddEventDelegate> delegate;
+
 @property (nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (nonatomic) IBOutlet UIButton *changeDateButton;
+@property (nonatomic) IBOutlet UIButton *chooseALocationButton;
+@property (nonatomic) IBOutlet UIButton *chooseYourEntourageButton;
 
-- (IBAction)backgroundClicked;
-- (IBAction)changeDatePressed:(UIButton*)sender;
-- (IBAction)cancelPressed;
-- (IBAction)savePressed;
-
-
+@property (nonatomic,strong) IBOutlet MKMapView *addEventMap;
+@property (nonatomic) UISearchDisplayController *mySearchDisplayController;
 
 @end

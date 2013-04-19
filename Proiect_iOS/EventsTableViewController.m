@@ -1,6 +1,8 @@
 
 #import "EventsTableViewController.h"
 #import "EventsTableViewCell.h"
+#import "iOSAppDelegate.h"
+#import "HomeUserProfileVC.h"
 
 @interface EventsTableViewController ()
 
@@ -8,6 +10,8 @@
 
 @implementation EventsTableViewController{
     NSDateFormatter *dateFormatter;
+    NSMutableDictionary *eventProfilePictures;
+    NSString *parent;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style {
@@ -49,22 +53,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
     self.tableView.separatorColor = [UIColor clearColor];
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMM dd, yyyy 'at' HH:mm"];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(locationDidChange:)
+                                                 name:CLocationChangeNotification
+                                               object:nil];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    eventProfilePictures = [[NSMutableDictionary alloc] init];
+}
+
+- (void)locationDidChange:(NSNotification *)note {
+    NSLog(@"location changed");
 }
 
 - (void)viewDidUnload {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:CLocationChangeNotification
+                                                  object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -133,17 +150,40 @@
          
         EventsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-            // Load the top-level objects from the custom cell XIB.
+            
             NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"EventsTableViewCell" owner:self options:nil];
             cell = (EventsTableViewCell*)[topLevelObjects objectAtIndex:0];
         }
-    //proprietati
-    NSLog(@"%i",indexPath.row);
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.nameLabel.text = [object objectForKey:@"eventName"];
-    cell.dateLabel.text = [dateFormatter stringFromDate:[object objectForKey:@"eventDate"]];
-    // cell.nameLabel.text = [[NSString alloc] initWithFormat:@"%i",indexPath.row];
-    return cell;
+    
+        //proprietati
+        //NSLog(@"%i",indexPath.row);
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if([object objectForKey:@"eventLocationName"]){
+            NSString *eventNameAtEventLocation = [[NSString alloc] initWithFormat:@"%@ @ %@",[object objectForKey:@"eventName"],[object objectForKey:@"eventLocationName"]];
+            cell.nameLabel.text = eventNameAtEventLocation;
+        } else {
+            cell.nameLabel.text = [object objectForKey:@"eventName"];
+        }
+        cell.dateLabel.text = [dateFormatter stringFromDate:[object objectForKey:@"eventDate"]];
+        NSLog(@"created by:%@",[object objectForKey:@"createdBy"]);
+        
+        PFQuery *query = [PFUser query];
+        parent = [object objectForKey:@"createdBy"];
+    //    NSLog(@"parinte:%@",parent);
+        [query getObjectInBackgroundWithId:parent  block:^(PFObject *utilizator, NSError *error) {
+            if (!error) {
+               // NSLog(@"nume din parse: %@", [utilizator objectForKey:@"name"]);
+                cell.createdBy.text = [utilizator objectForKey:@"name"];
+                PFFile *theImage = [utilizator objectForKey:@"profilePicture"];
+                [theImage getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    UIImage *image = [UIImage imageWithData:data];
+                    cell.eventProfilePicture.image = image;
+                }];
+            } else {
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }
+        }];
+        return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -13,11 +13,13 @@
     UILabel *_locationLabel;
     UILabel *_dateLabel;
     UILabel *_createdBy;
+    UIImageView *_eventProfilePicture;
 }
 
 @property (nonatomic, retain) IBOutlet UILabel *nameLabel;
 @property (nonatomic, retain) IBOutlet UILabel *locationLabel;
 @property (nonatomic, retain) IBOutlet UILabel *dateLabel;
 @property (nonatomic, retain) IBOutlet UILabel *createdBy;
+@property (nonatomic, retain) IBOutlet UIImageView *eventProfilePicture;
 
 @end
