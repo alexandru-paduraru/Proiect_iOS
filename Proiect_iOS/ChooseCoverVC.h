@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChooseCoverVC : UIViewController
+@protocol SelectedCoverDelegate <NSObject>
+- (void)showSelectedCover:(NSURL*)coverURL;
+@end
 
+@interface ChooseCoverVC : UIViewController <UITableViewDataSource, UITableViewDelegate>{
+    UITableView *_coverTableView;
+}
+
+@property (nonatomic,retain) IBOutlet UITableView *coverTableView;
+@property (nonatomic, retain) id<SelectedCoverDelegate>delegate;
 @end
