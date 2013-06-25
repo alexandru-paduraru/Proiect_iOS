@@ -4,24 +4,42 @@
 #import "MyLogInViewController.h"
 #import "AddEventViewController.h"
 #import "iOSAppDelegate.h"
+#import "Reachability.h"
+#import <SystemConfiguration/SystemConfiguration.h>
+#import "EventsTableVC.h"
 
 
 @interface iOSViewController () <CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource >{
-    NSArray *eventsArray;
+    NSMutableArray *eventsArray;
     BOOL eventsTableIsHidden;
+    EventsTableVC *eventsTable;
+    int eventsNumber;
 }
 
 @property (nonatomic, strong) CLLocationManager *_locationManager;
 
 // CLLocationManagerDelegate methods:
+- (void) alertStatus:(NSString *) message title:(NSString *) title;
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation;
 
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error;
-//notification
+- (void) locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
 
+- (void) startStandardUpdates;
+- (BOOL) connected;
+- (void) viewDidLoad;
+
+- (void) addButtonsToNavBar;
+- (void) logOutButtonPressed:(id)sender;
+- (void) createEventClicked:(id)sender;
+
+- (void) facebookLoginDone;
+- (void) checkIfUserExistsOrAddHimToDB;
+- (void) populateUserFBPictures;
+- (void) showEventsTableViewOrRefresh:(NSDictionary *)profileInfo;
 
 @end
 
@@ -115,51 +133,40 @@
 	}
 }
 
-/*
-- (void)populateEventsList{
-   
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                              @"createdBy = %@",[PFUser currentUser]];
-    PFQuery *query = [PFQuery queryWithClassName:@"Event" predicate:predicate];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            // The find succeeded.
-            eventsArray = objects;
-         //   [self initTableView];
-            [activityIndicator removeFromSuperview];
-            NSLog(@"Successfully retrieved %d events.", [eventsArray count]);
-            for (int i=0; i<4; i++) {
-                NSLog(@"%@",[[eventsArray objectAtIndex:i] objectForKey:@"eventName"]);
-            }
-        } else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];
-}
-*/
-
 #pragma mark - Init
-
+- (BOOL)connected{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return !(networkStatus == NotReachable);
+}
 - (void)viewDidLoad{
     [super viewDidLoad];
-    [super setTitle:@"Events"];
-    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]]];
+    [super setTitle:@"Moments"];
+   // [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:Background]]];
     [self addButtonsToNavBar];
     //   [activityIndicator startAnimating];
     eventsTableIsHidden = YES;
-    [self startStandardUpdates];
+    eventsNumber = 0;
+    
+    if([self connected]){
+        NSLog(@"connected");
+        [self startStandardUpdates];
+        [activityIndicator startAnimating];
+        if (![PFUser currentUser]) { // No user logged in
+            [self showLogInViewController];
+        } else {
+            // Create the table view controller
+            [self checkIfUserExistsOrAddHimToDB];
+        }
+    } else {
+        [self alertStatus:@"There is no available internet connection. Please try again later." title:@"No internet connection"];
+        //de facut aici o pagina cu o fata suparata in care sa zici ca nu exista conexiune la net, buton cu retry care duce la prima pagina, restul se face automat;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [activityIndicator startAnimating];
-    if (![PFUser currentUser]) { // No user logged in
-        [self showLogInViewController];
-    } else {
-        // Create the table view controller
-        [self checkIfUserExistsOrAddHimToDB];
-    }
+    
     
 }
 
@@ -186,13 +193,14 @@
 
 #pragma mark - Login/ Logout
 
--(void) showLogInViewController{
-    MyLogInViewController *loginViewController = [[MyLogInViewController alloc] init];
-    [loginViewController setDelegate:self];
-    [loginViewController setFields:PFLogInFieldsUsernameAndPassword | PFLogInFieldsSignUpButton | PFLogInFieldsFacebook];
+- (void) showLogInViewController{
+    MyLogInViewController *loginViewController = [[MyLogInViewController alloc] initWithNibName:@"MyLoginViewController" bundle:nil];
+    loginViewController.delegate = self;
+    [loginViewController setFields: PFLogInFieldsFacebook];
     loginViewController.facebookPermissions = [NSArray arrayWithObjects:
                                                @"user_about_me", @"user_birthday", @"user_location", @"email",@"user_photos",  nil];
-    [self presentViewController:loginViewController animated:YES completion:nil];
+    [self presentViewController:loginViewController animated:NO completion:nil];
+ 
 }
 - (void) logOutButtonPressed:(id)sender{
     [PFUser logOut];
@@ -235,14 +243,29 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-
 #pragma mark - EventsTable stuff
-- (void)showEventsTableViewOrRefresh{
-    [self.eventsTable.view removeFromSuperview];
-    self.eventsTable = [[EventsTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.eventsTable.view.frame = CGRectMake(0.f, 120.f, 320.f, 300.f);
-    [self addChildViewController:self.eventsTable];
-    [self.view addSubview:self.eventsTable.view];   
+
+- (void)showEventsTableViewOrRefresh:(NSDictionary *)profileInfo{
+    eventsTable = [[EventsTableVC alloc] init];
+    if(profileInfo){
+        [eventsTable initProfileInfoFacebook:profileInfo];
+    }
+    PFQuery *myEventsQuery = [PFQuery queryWithClassName:kParticipateClassKey];
+    [myEventsQuery whereKey:kFriendInvited equalTo:[[PFUser currentUser] objectId]];
+    [myEventsQuery orderByDescending:kCreatedAt];
+    [myEventsQuery includeKey:kParticipateEventID];
+    myEventsQuery.cachePolicy = kPFCachePolicyNetworkElseCache;
+    [myEventsQuery findObjectsInBackgroundWithBlock:^(NSArray *myEvents, NSError *error) {
+        if(!error){
+            [eventsTable initWithEvents:myEvents];
+            eventsTable.view.frame = CGRectMake(0.f, 0.f, 320.f, 420.f);
+            [self addChildViewController:eventsTable];
+            [self.view addSubview:eventsTable.view];
+        } else {
+            NSLog(@"eroare la primirea evenimentelor userului curent");
+        }
+    }];
+    
 }
 
 #pragma mark - Facebook Stuff
@@ -271,16 +294,16 @@
                  NSData *profileImageData = [NSData dataWithContentsOfURL:profileImageURL];
                  UIImage *profileImageView = [[UIImage alloc] initWithData:profileImageData];
                  
-                 self.homeUserProfile = [[HomeUserProfileVC alloc] initWithNibName:@"HomeUserProfileVC" bundle:nil];
-                 self.homeUserProfile.view.frame = CGRectMake(0.f, 0.f, 320.f, 150.f);
-                 self.homeUserProfile.userNameLabel.text = graphUser.name;
-                 self.homeUserProfile.profileCover.image = image;
-                 self.homeUserProfile.profileImageView.image = profileImageView;
+                 NSMutableDictionary *profileInfo = [NSMutableDictionary dictionaryWithCapacity:3];
+                 if(image){
+                     [profileInfo setObject:image forKey:@"cover"];
+                 } else {
+                     [profileInfo setObject:[UIImage imageNamed:@"eventTableCellHeader.png"] forKey:@"cover"];
+                 }
+                 [profileInfo setObject:profileImageView forKey:kUserProfilePictureKey];
+                 [profileInfo setObject:[graphUser objectForKey:@"name"] forKey:kUserNameKey];
                  
-                 [self addChildViewController:self.homeUserProfile];
-                 [self.view addSubview:self.homeUserProfile.view];
-                 
-                 [self showEventsTableViewOrRefresh];
+                 [self showEventsTableViewOrRefresh:profileInfo];
                  
                  NSURL *url = [NSURL URLWithString:graphUser[@"picture"][@"data"][@"url"]];
                  data = [NSData dataWithContentsOfURL:url];
@@ -299,8 +322,8 @@
                          [localUser saveInBackground];
                          [activityIndicator removeFromSuperview];
                          
-                         UIButton *sender = [[UIButton alloc] init];
-                         [self createEventClicked:sender];
+//                         UIButton *sender = [[UIButton alloc] init];
+//                         [self createEventClicked:sender];
                      }
                      else{
                          NSLog(@"Error: %@ %@", error, [error userInfo]);
@@ -319,7 +342,6 @@
         if (!error) {
             
             NSDictionary *userData = (NSDictionary *)result;
-            
             NSString *facebookID = userData[@"id"];
             if(userData[@"name"] && userData[@"location"][@"name"]){
                 NSDictionary *userProfile = @{
@@ -329,25 +351,24 @@
                                               @"gender": userData[@"gender"],
                                               @"birthday": userData[@"birthday"],
                                               @"email":userData[@"email"]
-                                              //  @"pictureURL": [pictureURL absoluteString]
+                                              
                                               };
 
                 PFUser *localUser = [PFUser currentUser];
-                [localUser setObject:[userProfile objectForKey:@"birthday"] forKey:UserBirthdayKey];
-                [localUser setObject:[userProfile objectForKey:@"location"] forKey:@"location"];
-                [localUser setObject:[userProfile objectForKey:@"name"] forKey:UserNameKey];
-                [localUser setObject:userProfile[@"email"] forKey:UserEmailKey];
+                [localUser setObject:[userProfile objectForKey:@"birthday"] forKey:kUserBirthdayKey];
+                [localUser setObject:[userProfile objectForKey:@"location"] forKey:kUserLocationNameKey];
+                [localUser setObject:[userProfile objectForKey:@"name"] forKey:kUserNameKey];
+                [localUser setObject:userProfile[@"email"] forKey:kUserEmailKey];
                 [localUser saveInBackground];
                 
                 NSLog(@"nume:%@, \n data nasterii: %@",[userProfile objectForKey:@"name"],[userProfile objectForKey:@"birthday"]);
                
-                
                 [self populateUserFBPictures];
             }
         } else if ([error.userInfo[FBErrorParsedJSONResponseKey][@"body"][@"error"][@"type"] isEqualToString:@"OAuthException"]) { // 
             NSLog(@"The facebook session was invalidated");
            // [self showLogInViewController];
-            [self showEventsTableViewOrRefresh];
+            [self showEventsTableViewOrRefresh:nil];
         } else {
             NSLog(@"Some other error: %@", error);
         }
@@ -355,16 +376,14 @@
 }
 
 - (void) createEventClicked:(id)sender{
+        
     AddEventViewController *addEventViewController = [[AddEventViewController alloc] initWithNibName:@"AddEventViewController" bundle:nil];
-    
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addEventViewController];
     [self presentModalViewController:navController animated:YES];
-
-    
-//    [self presentViewController:addEventViewController animated:YES completion:nil];
-   // [self.navigationController pushViewController:addEventViewController animated:YES];
 }
-
+- (void)facebookLoginDone{
+    [self checkIfUserExistsOrAddHimToDB];
+}
 
 - (void)didReceiveMemoryWarning
 {

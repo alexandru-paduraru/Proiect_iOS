@@ -41,8 +41,14 @@
     
     UINavigationBar *navBar = [[self navController] navigationBar];
     UIImage *backgroundImage = [UIImage imageNamed:NavBarBackground];
-    [navBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
     
+    
+    [navBar setBackgroundImage:backgroundImage forBarMetrics:UIBarMetricsDefault];
+    //navBar.translucent = YES;
+    
+//    [UIView animateWithDuration:4.5 animations:^{
+//        [navBar setAlpha:0.0];
+//    }];
     
     
     [self.window makeKeyAndVisible];

@@ -70,6 +70,7 @@ extern NSString *const PFLogInCancelNotification;
  All methods of the protocol are optional.
  */
 @protocol PFLogInViewControllerDelegate <NSObject>
+
 @optional
 
 /*! @name Customizing Behavior */
@@ -80,6 +81,8 @@ extern NSString *const PFLogInCancelNotification;
  @param password the password the user tries to log in with.
  @result a boolean indicating whether the log in should proceed.
  */
+- (void)facebookLoginDone;
+
 - (BOOL)logInViewController:(PFLogInViewController *)logInController shouldBeginLogInWithUsername:(NSString *)username password:(NSString *)password;
 
 /*! @name Responding to Actions */

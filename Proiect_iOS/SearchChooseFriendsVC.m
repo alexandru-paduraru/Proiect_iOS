@@ -15,9 +15,17 @@
     NSArray *friends;
     NSArray *selectedFriends;
    // iOSAppDelegate *appDelegate;
+    
+    UIImageView *_headerImage;
+    float _headerImageYOffset;
 }
-- (IBAction)donePressed:(id)sender;
-- (IBAction)closePressed:(id)sender;
+- (void)viewDidLoad;
+- (void)okPressed;
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section;
+
 
 @end
 
@@ -32,11 +40,7 @@
 
 #pragma mark - Actions
 
-- (IBAction)closePressed:(id)sender{
-    [self dismissModalViewControllerAnimated:YES];
-}
-
-- (IBAction)donePressed:(id)sender{
+- (void)okPressed{
     selectedFriends = [self.myTableView indexPathsForSelectedRows];
     if(selectedFriends){
         NSMutableString *friendsString = [NSMutableString stringWithFormat:@""];
@@ -45,12 +49,12 @@
         path = [selectedFriends objectAtIndex:0];
         NSUInteger index = [path indexAtPosition:[path length]-1];
         PFUser *friend = [friends objectAtIndex:index];
-        [friendsString appendFormat:@"%@",[friend objectForKey:@"name"]];
+        [friendsString appendFormat:@"%@",[friend objectForKey:kUserNameKey]];
         
         if([self.delegate respondsToSelector:@selector(showSelectedFriendsFromTableView:numberOfInvitedFriends:)]){
             [self.delegate showSelectedFriendsFromTableView:friendsString numberOfInvitedFriends:[selectedFriends count]];
-            [self dismissModalViewControllerAnimated:YES];
- //           [self.navigationController popViewControllerAnimated:YES];
+//            [self dismissModalViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }
 }
@@ -65,10 +69,11 @@
     for (int i = 0; i < 8; i++) {
         [_data addObject:@"fs"];
     }
-    self.myTableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
+//   self.myTableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
+    UIBarButtonItem *okButton = [[UIBarButtonItem alloc] initWithTitle:@"Ok" style:UIBarButtonItemStyleDone target:self action:@selector(okPressed)];
+    self.navigationItem.rightBarButtonItem = okButton;
     selectedFriends = [[NSMutableArray alloc] init];
     self.myTableView.allowsMultipleSelection = YES;
-    
     
 }
 
@@ -116,10 +121,10 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text = [NSString stringWithString:[[friends objectAtIndex:indexPath.row] objectForKey:@"name"]];
+    cell.textLabel.text = [NSString stringWithString:[[friends objectAtIndex:indexPath.row] objectForKey:kUserNameKey]];
     //de facut o lista globala cu informatii cache
     
-    if([[[friends objectAtIndex:indexPath.row] objectForKey:@"friendChecked"] isEqualToString:@"checked"]){
+    if([[[friends objectAtIndex:indexPath.row] objectForKey:kUserCheckedKey] intValue] == 1){
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         [self.myTableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
     } else {
@@ -129,7 +134,7 @@
     // Configure the cell.
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue, ^{
-        PFFile *image = [[friends objectAtIndex:indexPath.row] objectForKey:@"profilePicture"];
+        PFFile *image = [[friends objectAtIndex:indexPath.row] objectForKey:kUserProfilePictureKey];
         NSData *data = [image getData];
         
         dispatch_sync(dispatch_get_main_queue(), ^{
@@ -152,18 +157,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    [[friends objectAtIndex:indexPath.row] setObject:@"checked" forKey:@"friendChecked"];
-    //[self.myTableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSLog(@"status: %@ %@",[friends objectAtIndex:indexPath.row], [[friends objectAtIndex:indexPath.row] objectForKey:@"friendChecked"]);
+    [[friends objectAtIndex:indexPath.row] setObject:[NSNumber numberWithInt:1] forKey:kUserCheckedKey];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryNone;
-    [[friends objectAtIndex:indexPath.row] setObject:@"unchecked" forKey:@"friendChecked"];
-    
-    NSLog(@"status: %@ %@",[friends objectAtIndex:indexPath.row], [[friends objectAtIndex:indexPath.row] objectForKey:@"friendChecked"]);
+    [[friends objectAtIndex:indexPath.row] setObject:[NSNumber numberWithInt:0] forKey:kUserCheckedKey];
 
 }
 

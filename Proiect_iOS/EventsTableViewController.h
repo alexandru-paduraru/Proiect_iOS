@@ -10,4 +10,5 @@
 
 @interface EventsTableViewController : PFQueryTableViewController
 
+- (void)initProfileInfoFacebook:(NSDictionary *)profileInfo;
 @end

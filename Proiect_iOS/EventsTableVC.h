@@ -5,9 +5,13 @@
 //  Created by Axelut Alex on 214//13.
 //  Copyright (c) 2013 Axelut Alex. All rights reserved.
 //
+#import <UIKit/UIKit.h>
 
-#import <Parse/Parse.h>
+@interface EventsTableVC : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@interface EventsTableVC : PFQueryTableViewController
+@property (nonatomic, retain) IBOutlet UITableView *myTableView;
+
+-(void)initWithEvents:(NSArray*)aEvents;
+-(void)initProfileInfoFacebook:(NSDictionary *)profileInfo;
 
 @end

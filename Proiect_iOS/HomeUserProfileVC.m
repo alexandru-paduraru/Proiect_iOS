@@ -7,8 +7,18 @@
 //
 
 #import "HomeUserProfileVC.h"
+#import "iOSAppDelegate.h"
 
-@interface HomeUserProfileVC ()
+@interface HomeUserProfileVC (){
+    UIImage *FBProfileImage;
+    UIImage *FBProfileCover;
+    NSString *FBProfileName;
+    int momentsNumber;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
+- (void)initProfileInfoFacebook:(NSDictionary *)profileInfo;
+- (void)viewDidLoad;
 
 @end
 
@@ -17,6 +27,7 @@
 @synthesize profileCover;
 @synthesize userNameLabel;
 @synthesize profileImageView;
+@synthesize userMomentsNumber;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,16 +39,38 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    [self.profileImageView.layer setBorderColor: [[UIColor whiteColor] CGColor]];
-    [self.profileImageView.layer setBorderWidth: 2.0];
    
-}
-- (void)initWithPictureAndCover{
+    self.view.backgroundColor = [UIColor clearColor];
+//    self.profileCover.image = FBProfileCover;
+    self.profileImageView.image = FBProfileImage;
+    self.userNameLabel.text = FBProfileName;
     
+    self.profileImageView.layer.masksToBounds = YES;
+    
+    [self.profileCover.layer setContentsGravity:kCAGravityResizeAspectFill];
+    self.profileCover.layer.masksToBounds = YES;
+    
+    if(momentsNumber != 0){
+        self.userMomentsNumber.text = [NSString stringWithFormat:@"%i moments", momentsNumber];
+    } else {
+        self.userMomentsNumber.text = @"No moments tap + to create one";
+    }
+ //   [self.profileImageView.layer setBorderColor: [[UIColor grayColor] CGColor]];
+ //   [self.profileImageView.layer setBorderWidth: 2.0];
+    self.profileImageView.layer.cornerRadius = FBProfileImage.size.width/2;
+    self.view.frame = CGRectMake(0.f, 0.f, 320.f, 150.f);
+    
+}
+
+- (void)initProfileInfoFacebook:(NSDictionary *)profileInfo{
+
+    FBProfileImage = [profileInfo objectForKey:kUserProfilePictureKey];
+    FBProfileName = [profileInfo objectForKey:kUserNameKey];
+    momentsNumber = 10;
 }
 - (void)didReceiveMemoryWarning
 {

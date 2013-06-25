@@ -3,6 +3,8 @@
 #import "EventsTableViewCell.h"
 #import "iOSAppDelegate.h"
 #import "HomeUserProfileVC.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 @interface EventsTableViewController ()
 
@@ -11,8 +13,18 @@
 @implementation EventsTableViewController{
     NSDateFormatter *dateFormatter;
     NSMutableDictionary *eventProfilePictures;
-    NSString *parent;
+    PFUser *parent;
+    
+    UIImage *FBprofileCover;
+    NSString *FBuserNameLabel;
+    UIImage *FBprofileImage;
+    HomeUserProfileVC *homeUserProfile;
+    CGRect initial;
+    
+    UIImageView *_headerImage;
+    float _headerImageYOffset;
 }
+
 
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
@@ -41,6 +53,29 @@
     return self;
 }
 
+- (void)initProfileInfoFacebook:(NSDictionary *)profileInfo{
+    FBprofileCover = [profileInfo objectForKey:@"cover"];
+    FBprofileImage = [profileInfo objectForKey:@"profileImage"];
+    FBuserNameLabel = [profileInfo objectForKey:@"name"];
+
+    homeUserProfile = [[HomeUserProfileVC alloc] initWithNibName:@"HomeUserProfileVC" bundle:nil];
+    [homeUserProfile initProfileInfoFacebook:profileInfo];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat scrollOffset = scrollView.contentOffset.y;
+    CGRect headerImageFrame = _headerImage.frame;
+    
+    if (scrollOffset < 0) {
+        // Adjust image proportionally
+        headerImageFrame.origin.y = _headerImageYOffset - ((scrollOffset / 3));
+    } else {
+        // We're scrolling up, return to normal behavior
+        headerImageFrame.origin.y = _headerImageYOffset - scrollOffset;
+    }
+    _headerImage.frame = headerImageFrame;
+}
+
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -53,22 +88,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:Background]];
+    
+    self.view.backgroundColor = [UIColor clearColor];
     self.tableView.separatorColor = [UIColor clearColor];
     dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MMM dd, yyyy 'at' HH:mm"];
+    [dateFormatter setDateFormat:EventDateFormat];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(locationDidChange:)
                                                  name:CLocationChangeNotification
                                                object:nil];
-
+    
+    
+    self.tableView.tableHeaderView = homeUserProfile.view;
+    
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     eventProfilePictures = [[NSMutableDictionary alloc] init];
+    
+    
 }
 
 - (void)locationDidChange:(NSNotification *)note {
@@ -121,74 +164,75 @@
     // This method is called every time objects are loaded from Parse via the PFQuery
 }
 
- // Override to customize what kind of query to perform on the class. The default is to query for
- // all objects ordered by createdAt descending.
 - (PFQuery *)queryForTable {
-        
-//         NSPredicate *predicate = [NSPredicate predicateWithFormat:
-//                                  @"createdBy = %@",[PFUser currentUser]];
-//         PFQuery *query = [PFQuery queryWithClassName:self.className predicate:predicate];
-         PFQuery *query = [PFQuery queryWithClassName:self.className];
     
-         // If Pull To Refresh is enabled, query against the network by default.
-         if (self.pullToRefreshEnabled) {
-             query.cachePolicy = kPFCachePolicyNetworkOnly;
-         }
-         
-         // If no objects are loaded in memory, we look to the cache first to fill the table
-         // and then subsequently do a query against the network.
-         if (self.objects.count == 0) {
-             query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-         }
-         [query orderByDescending:@"createdAt"];
-         
-         return query;
- }
+    //         NSPredicate *predicate = [NSPredicate predicateWithFormat:
+    //                                  @"createdBy = %@",[PFUser currentUser]];
+    //         PFQuery *query = [PFQuery queryWithClassName:self.className predicate:predicate];
+    PFQuery *query = [PFQuery queryWithClassName:self.className];
+    
+    // If Pull To Refresh is enabled, query against the network by default.
+    if (self.pullToRefreshEnabled) {
+        query.cachePolicy = kPFCachePolicyNetworkOnly;
+    }
+    
+    // If no objects are loaded in memory, we look to the cache first to fill the table
+    // and then subsequently do a query against the network.
+    if (self.objects.count == 0) {
+        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
+    }
+    [query orderByDescending:@"createdAt"];
+    
+    return query;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
-         static NSString *CellIdentifier = @"Cell";
-         
+    
+    static NSString *CellIdentifier = @"Cell";
+    
         EventsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
             
             NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"EventsTableViewCell" owner:self options:nil];
             cell = (EventsTableViewCell*)[topLevelObjects objectAtIndex:0];
         }
-    
-        //proprietati
-        //NSLog(@"%i",indexPath.row);
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        if([object objectForKey:@"eventLocationName"]){
-            NSString *eventNameAtEventLocation = [[NSString alloc] initWithFormat:@"%@ @ %@",[object objectForKey:@"eventName"],[object objectForKey:@"eventLocationName"]];
+        if([object objectForKey:kEventLocationNameKey]){
+            NSString *eventNameAtEventLocation = [[[NSString alloc] initWithFormat:@"%@ @ %@",[object objectForKey:kEventNameKey],[object objectForKey:kEventLocationNameKey]] uppercaseString];
             cell.nameLabel.text = eventNameAtEventLocation;
         } else {
-            cell.nameLabel.text = [object objectForKey:@"eventName"];
+            cell.nameLabel.text = [object objectForKey:kEventNameKey];
         }
-        cell.dateLabel.text = [dateFormatter stringFromDate:[object objectForKey:@"eventDate"]];
-        NSLog(@"created by:%@",[object objectForKey:@"createdBy"]);
+        cell.dateLabel.text = [[dateFormatter stringFromDate:[object objectForKey:kEventDateKey]] uppercaseString];
+        NSLog(@"created by:%@",[object objectForKey:kEventParentKey]);
         
-        PFQuery *query = [PFUser query];
-        parent = [object objectForKey:@"createdBy"];
-    //    NSLog(@"parinte:%@",parent);
-        [query getObjectInBackgroundWithId:parent  block:^(PFObject *utilizator, NSError *error) {
+        parent = [object objectForKey:kEventParentKey];
+        [parent fetchInBackgroundWithBlock:^(PFObject *utilizator, NSError *error) {
             if (!error) {
-               // NSLog(@"nume din parse: %@", [utilizator objectForKey:@"name"]);
-                cell.createdBy.text = [utilizator objectForKey:@"name"];
-                PFFile *theImage = [utilizator objectForKey:@"profilePicture"];
+                PFFile *theImage = [utilizator objectForKey:kUserProfilePictureKey];
+                cell.createdBy.text = [utilizator objectForKey:kUserNameKey];
                 [theImage getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                     UIImage *image = [UIImage imageWithData:data];
+                    NSLog(@"background dl image for event");
                     cell.eventProfilePicture.image = image;
+                    cell.eventProfilePicture.layer.masksToBounds = YES;
+                    cell.eventProfilePicture.layer.cornerRadius = image.size.width/2;
+                    //                    cell.eventProfilePicture.layer.borderWidth = 2.0;
+                    //                    cell.eventProfilePicture.layer.borderColor = [UIColor whiteColor].CGColor;
                 }];
             } else {
                 NSLog(@"Error: %@ %@", error, [error userInfo]);
             }
+
         }];
-        return cell;
+    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 137;
+    return 265;
 }
 
 
@@ -200,21 +244,21 @@
  */
 
 
- // Override to customize the look of the cell that allows the user to load the next page of objects.
- // The default implementation is a UITableViewCellStyleDefault cell with simple labels.
+// Override to customize the look of the cell that allows the user to load the next page of objects.
+// The default implementation is a UITableViewCellStyleDefault cell with simple labels.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForNextPageAtIndexPath:(NSIndexPath *)indexPath {
-         static NSString *CellIdentifier = @"NextPage";
-         
-         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-         
-         if (cell == nil) {
-         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-         }
-         
-         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-         cell.textLabel.text = @"Load more events...";
-         
-         return cell;
+    static NSString *CellIdentifier = @"NextPage";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.text = @"Load more events...";
+
+    return cell;
 }
 
 #pragma mark - UITableViewDataSource

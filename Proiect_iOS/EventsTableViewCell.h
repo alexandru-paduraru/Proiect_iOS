@@ -21,5 +21,9 @@
 @property (nonatomic, retain) IBOutlet UILabel *dateLabel;
 @property (nonatomic, retain) IBOutlet UILabel *createdBy;
 @property (nonatomic, retain) IBOutlet UIImageView *eventProfilePicture;
+@property (nonatomic, retain) IBOutlet UIImageView *eventCover;
+@property (nonatomic, retain) IBOutlet UIView *background;
+
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end

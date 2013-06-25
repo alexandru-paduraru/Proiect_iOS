@@ -7,8 +7,9 @@
 //
 #import <UIKit/UIKit.h>
 #import "AddEventViewController.h"
-#import "EventsTableViewController.h"
+#import "EventsTableVC.h"
 #import "HomeUserProfileVC.h"
+
 
 
 @interface iOSViewController : UIViewController <PFLogInViewControllerDelegate , PFSignUpViewControllerDelegate>{
@@ -17,7 +18,7 @@
 
 @property (nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,retain) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic) IBOutlet EventsTableViewController *eventsTable;
+@property (nonatomic) IBOutlet EventsTableVC *eventsTable;
 @property (nonatomic) IBOutlet HomeUserProfileVC *homeUserProfile;
 @property (nonatomic, strong) IBOutlet FBProfilePictureView *userProfileImage;
 @property (nonatomic, strong) IBOutlet UILabel *userNameLabel;

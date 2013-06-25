@@ -10,6 +10,8 @@
 #import "iOSAppDelegate.h"
 
 @interface PlacePickerViewController ()
+- (void)viewDidLoad;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil;
 
 @end
 
@@ -25,7 +27,7 @@
         // Configure the additional search parameters
         self.radiusInMeters = 500;
         self.resultsLimit = 50;   
-     //   self.searchText = @"restaurant";
+        self.searchText = @"restaurant";
     }
     return self;
 }

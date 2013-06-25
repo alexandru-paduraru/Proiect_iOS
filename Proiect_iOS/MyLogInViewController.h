@@ -13,4 +13,5 @@
 }
 
 @property (nonatomic,retain) UIImageView *fieldsBackground;
+
 @end
